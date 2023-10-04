@@ -1,15 +1,52 @@
+import { useContext, useState } from "react";
+import { FirebaseContext } from "../context/FirebaseContext";
+
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { signIn } = useContext(FirebaseContext);
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+
+    signIn(email, password)
+      .then((res) => {
+        console.log(res.user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <div className="container mx-auto flex justify-center">
-      <form className="flex justify-center flex-col items-center">
-        <h1 className="mt-8 mb-5 text-center text-2xl">Login with Email and password.</h1>
+      <form
+        onSubmit={handleSignUp}
+        className="flex justify-center flex-col items-center"
+      >
+        <h1 className="mt-8 mb-5 text-center text-2xl">
+          Login with Email and password.
+        </h1>
         <input
-          type="text"
+          onChange={handleEmail}
+          type="email"
+          name="email"
           placeholder="Email"
           className="input input-bordered w-full max-w-xs mb-5"
         />
         <input
-          type="text"
+          onChange={handlePassword}
+          type="password"
+          name="password"
           placeholder="Password"
           className="input input-bordered w-full max-w-xs mb-5"
         />
