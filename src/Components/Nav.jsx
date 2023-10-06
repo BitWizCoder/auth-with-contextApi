@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 
 const Nav = () => {
   const navItems = (
@@ -9,11 +10,31 @@ const Nav = () => {
       <li>
         <Link to="/signup">Signup</Link>
       </li>
+      <li>
+        <Link to="/googlesignin">Google</Link>
+      </li>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
     </>
   );
 
+  const auth = getAuth();
+
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log("signed out successfully");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      });
+  };
+
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 container mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -42,10 +63,12 @@ const Nav = () => {
         <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navItems}</ul>
+        <ul className="menu menu-horizontal px-1 gap-2">{navItems}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <a className="btn" onClick={handleSignOut}>
+          Signout
+        </a>
       </div>
     </div>
   );

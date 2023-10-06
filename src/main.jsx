@@ -7,6 +7,9 @@ import Layout from "./Components/Layout.jsx";
 import Login from "./Components/Login.jsx";
 import Signup from "./Components/Signup";
 import { FirebaseProvider } from "./context/FirebaseContext";
+import GoogleSignIn from "./Components/GoogleSignIn";
+import Dashboard from "./Components/Dashboard";
+import PrivateRoute from "./Components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,18 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/googlesignin",
+        element: <GoogleSignIn />,
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,5 +1,7 @@
-import { useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "../context/FirebaseContext";
+import { getAuth } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
